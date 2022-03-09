@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const KeyboardWrapper = styled.div`
-  width: 25%;
+  width: 30%;
   height: 25%;
   display: flex;
   flex-direction: column;
@@ -11,14 +11,14 @@ export const KeyboardWrapper = styled.div`
 
 export const KeysWrapper = styled.div`
   width: 100%;
-  height: 10%;
+  height: 25%;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 export const Key = styled.button`
-  width: 30px;
+  width: 40px;
   aspect-ratio: 1/1;
   display: flex;
   justify-content: center;
@@ -34,7 +34,7 @@ export const Key = styled.button`
 `;
 
 export const Kingsize = styled.div`
-  width: 40px;
+  width: 55px;
   height: 30px;
   display: flex;
   justify-content: center;
