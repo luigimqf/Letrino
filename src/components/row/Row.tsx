@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useContext } from "react";
+import { useRef, useEffect, useContext } from "react";
 import { GameInfoContext } from "../../contexts/GameContext";
 import { GuessedBox, GuessedLetter, LetterBox, RowBox } from "./style";
 import { alphabet } from "../../utils/alfabeto";
@@ -28,12 +28,13 @@ export function Row({ isActive, row, index }: IProps) {
     e: React.KeyboardEvent<HTMLInputElement>,
     index: number
   ) {
-    let letter = e.key.toLowerCase();
+    let letter = e.key;
+
     if (!alphabet.includes(letter)) return;
-    if (letter === "backspace") letter = "";
+    if (letter === "backspace" || letter === "Backspace") letter = "";
 
     const guessCopy = [...grid];
-    guessCopy[activeRow].letters[index] = letter.toUpperCase();
+    guessCopy[activeRow].letters[index] = letter;
 
     setGrid(guessCopy);
 
@@ -55,6 +56,7 @@ export function Row({ isActive, row, index }: IProps) {
     if (word[index] === letter.toLowerCase()) return "#10ac84";
     if (word.includes(letter.toLowerCase())) return "#ffa502";
     if (!word.includes(letter.toLowerCase())) return "#b71540";
+
     return "#121214";
   }
 
@@ -81,7 +83,7 @@ export function Row({ isActive, row, index }: IProps) {
                 key={index}
                 style={{ backgroundColor: `${color}` }}
               >
-                {letter}
+                {letter.toUpperCase()}
               </GuessedLetter>
             );
           })}
@@ -91,7 +93,7 @@ export function Row({ isActive, row, index }: IProps) {
           {row.letters.map((letter, index) => {
             return (
               <LetterBox
-                value={letter}
+                value={letter.toUpperCase()}
                 disabled={!isActive}
                 maxLength={1}
                 onFocus={() => setInputOnFocus(index)}

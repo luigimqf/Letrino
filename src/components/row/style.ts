@@ -44,9 +44,9 @@ export const RowBox = styled.div`
 export const LetterBox = styled.input<IProps>`
   width: 10%;
   aspect-ratio: 1/1;
-  border: 2px solid ${(props) => (props.isActive ? "#fff" : "#ffa502")};
+  border: 2px solid ${(props) => (props.isActive ? "#fff" : "none")};
   border-radius: 5px;
-  background: none;
+  background: ${(props) => (props.isActive ? "none" : "#none")};
   color: #fff;
   font-weight: bold;
   text-decoration: none;

@@ -1,41 +1,22 @@
-import { SetStateAction, useContext, useState } from "react";
+import { useContext } from "react";
 import { Kingsize, Key, KeyboardWrapper, KeysWrapper } from "./style";
 import { HiBackspace as Backspace } from "react-icons/hi";
 import { BsCheck2 as Enter } from "react-icons/bs";
 import { GameInfoContext } from "../../contexts/GameContext";
 
 export function Keyboard() {
-  const [upKeys, setUpKeys] = useState([
-    "Q",
-    "E",
-    "R",
-    "T",
-    "Y",
-    "U",
-    "I",
-    "O",
-    "P",
-  ]);
-  const [middleKeys, setMiddleKeys] = useState([
-    "A",
-    "S",
-    "D",
-    "F",
-    "G",
-    "H",
-    "J",
-    "K",
-    "L",
-  ]);
-  const [downKeys, setDownKeys] = useState(["Z", "X", "C", "V", "B", "N", "M"]);
+  const upKeys = ["Q", "E", "R", "T", "Y", "U", "I", "O", "P"];
+  const middleKeys = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
+  const downKeys = ["Z", "X", "C", "V", "B", "N", "M"];
   const {
-    word,
     grid,
     setGrid,
     handleGuess,
     activeRow,
     inputOnFocus,
     setInputOnFocus,
+    rightLetters,
+    wrongLetter,
   } = useContext(GameInfoContext);
 
   function handleClick(key: string, index: number) {
@@ -44,7 +25,7 @@ export function Keyboard() {
       return;
     }
     const guessCopy = [...grid];
-    guessCopy[activeRow].letters[index] = key.toUpperCase();
+    guessCopy[activeRow].letters[index] = key.toLowerCase();
     setGrid(guessCopy);
     if (key === "") {
       setInputOnFocus(inputOnFocus - 1);
@@ -54,18 +35,19 @@ export function Keyboard() {
   }
 
   function getLetterColor(letter: string) {
-    if (grid[activeRow].letters.includes(letter.toLowerCase()))
-      return "#2ed573";
-    if (grid[activeRow].letters.includes(letter.toLowerCase()))
-      return "#b71540";
-    return "transparent";
+    for (let i = 0; i < rightLetters.length; i++) {
+      if (rightLetters.includes(letter)) return "#10ac84";
+      if (wrongLetter.includes(letter)) return "#b71540";
+
+      return "transparent";
+    }
   }
 
   return (
     <KeyboardWrapper>
       <KeysWrapper>
         {upKeys.map((key, index) => {
-          const color = getLetterColor(key);
+          const color = getLetterColor(key.toLowerCase());
 
           return (
             <Key
@@ -81,9 +63,11 @@ export function Keyboard() {
       </KeysWrapper>
       <KeysWrapper>
         {middleKeys.map((key) => {
+          const color = getLetterColor(key.toLowerCase());
           return (
             <Key
               value={key}
+              style={{ backgroundColor: `${color}` }}
               onClick={() => handleClick(key, inputOnFocus)}
               key={key}
             >
@@ -101,9 +85,11 @@ export function Keyboard() {
           <Enter style={{ width: "20px", height: "20px" }} />
         </Kingsize>
         {downKeys.map((key) => {
+          const color = getLetterColor(key.toLowerCase());
           return (
             <Key
               value={key}
+              style={{ backgroundColor: `${color}` }}
               onClick={() => handleClick(key, inputOnFocus)}
               key={key}
             >

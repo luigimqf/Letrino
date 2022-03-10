@@ -5,25 +5,19 @@ export const Wrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-`;
-
-export const Header = styled.div`
-  width: 100%;
-  height: 10%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  position: relative;
 `;
 
 export const GameContainer = styled.div`
-  width: 100%;
-  height: 80%;
+  width: 95%;
+  height: 85%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  margin-bottom: 40px;
 `;
 
 export const NameWrapper = styled.div`

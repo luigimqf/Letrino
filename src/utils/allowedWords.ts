@@ -1,5 +1,8 @@
-export const denied: string[] = [
+export const allowed: string[] = [
+  "BVCXZ",
+  "LKJHG",
   "AMORA",
+  "ALHOS",
   "AAIUN",
   "AARAO",
   "ABABA",
