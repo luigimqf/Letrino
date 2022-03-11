@@ -4,8 +4,8 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { words } from "../utils/randomWord";
 import { allowed } from "../utils/allowedWords";
+import { randomWord } from "../utils/getRandomWord";
 
 interface IProps {
   children: React.ReactNode;
@@ -13,9 +13,12 @@ interface IProps {
 
 interface IGame {
   word: string;
-  teste: boolean;
+  isGameWon: boolean;
+  setIsGameWon: React.Dispatch<SetStateAction<boolean>>;
+  displayWonScreen: boolean;
+  setDisplayWonScreen: React.Dispatch<SetStateAction<boolean>>;
+  guesses: string[][];
   getResults: Function;
-  setTeste: React.Dispatch<SetStateAction<boolean>>;
   handleGuess: Function;
   grid: { id: number; letters: string[] }[];
   setGrid: React.Dispatch<SetStateAction<{ id: number; letters: string[] }[]>>;
@@ -31,14 +34,13 @@ interface IGame {
 export const GameInfoContext = createContext({} as IGame);
 
 export function GameInfoProvider({ children }: IProps) {
-  const [word, setWord] = useState(
-    words[Math.floor(Math.random() * words.length)]
-  );
+  const word = randomWord;
   const [activeRow, setActiveRow] = useState(0);
-  const [teste, setTeste] = useState(true);
+  const [isGameWon, setIsGameWon] = useState(false);
+  const [displayWonScreen, setDisplayWonScreen] = useState(false);
   const [guessedRows, setGuessedRows] = useState<number[]>([]);
   const [guesses, setGuesses] = useState<string[][]>([]);
-  const [results, setResults] = useState<string[]>([]);
+  const [results, setResults] = useState<string>("");
   const [inputOnFocus, setInputOnFocus] = useState(0);
   const [wrongLetter, setWrongLetters] = useState<string[]>([]);
   const [rightLetters, setRightLetters] = useState<string[]>([]);
@@ -73,6 +75,9 @@ export function GameInfoProvider({ children }: IProps) {
     setActiveRow(activeRow + 1);
     if (grid[activeRow].letters.join("") === word) {
       setActiveRow(0);
+      setTimeout(() => {
+        setIsGameWon(true);
+      }, 1500);
     }
   }
 
@@ -84,39 +89,44 @@ export function GameInfoProvider({ children }: IProps) {
   }
 
   function getResults() {
-    guesses.map((guess, index) => {
+    console.log("entrei");
+    setResults(`Meu resultado foi (${guesses.length}/6) @everyone \n \n`);
+    guesses.map((guess) => {
       guess.map((letter, index) => {
-        console.log(letter);
-        if (word[index] === letter)
-          setResults((prevValue) => [...prevValue, "🟩"]);
-        if (word.includes(letter))
-          setResults((prevValue) => [...prevValue, "🟨"]);
-        if (!word.includes(letter))
-          setResults((prevValue) => [...prevValue, "🟥"]);
+        if (word[index] === letter) {
+          setResults((prevValue) => prevValue + "🟩");
+        } else if (word.includes(letter)) {
+          setResults((prevValue) => prevValue + "🟨");
+        } else if (!word.includes(letter)) {
+          setResults((prevValue) => prevValue + "🟥");
+        }
+        if (index === 4) setResults((prevValue) => prevValue + "\n");
       });
     });
+
+    setResults((prevValue) => prevValue + "\nJogue Letrino em site:");
   }
 
-  /*
-   * Criar o sistema de gridGuessed para a copia dos resultados em quadrados coloridos
-   */
   useEffect(() => {
     console.log(word);
   }, []);
   useEffect(() => {
-    console.log(guesses);
-  }, [guesses]);
+    console.log(isGameWon);
+  }, [isGameWon]);
   useEffect(() => {
-    console.log(results);
+    navigator.clipboard.writeText(results);
   }, [results]);
 
   return (
     <GameInfoContext.Provider
       value={{
         word,
-        teste,
+        displayWonScreen,
+        setDisplayWonScreen,
+        guesses,
+        isGameWon,
+        setIsGameWon,
         getResults,
-        setTeste,
         handleGuess,
         grid,
         setGrid,

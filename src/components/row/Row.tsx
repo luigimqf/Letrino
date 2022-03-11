@@ -1,4 +1,4 @@
-import { useRef, useEffect, useContext } from "react";
+import { useRef, useEffect, useContext, SetStateAction } from "react";
 import { GameInfoContext } from "../../contexts/GameContext";
 import { GuessedBox, GuessedLetter, LetterBox, RowBox } from "./style";
 import { alphabet } from "../../utils/alfabeto";
@@ -12,6 +12,8 @@ interface IProps {
 export function Row({ isActive, row, index }: IProps) {
   const {
     word,
+    isGameWon,
+    setDisplayWonScreen,
     grid,
     setGrid,
     activeRow,
@@ -60,6 +62,12 @@ export function Row({ isActive, row, index }: IProps) {
     return "#121214";
   }
 
+  function handleDisplayGameWon() {
+    if (isGameWon) {
+      setDisplayWonScreen(true);
+    }
+  }
+
   useEffect(() => {
     changeInputFocus(inputOnFocus);
   }, [inputOnFocus]);
@@ -81,6 +89,7 @@ export function Row({ isActive, row, index }: IProps) {
             return (
               <GuessedLetter
                 key={index}
+                onClick={() => handleDisplayGameWon()}
                 style={{ backgroundColor: `${color}` }}
               >
                 {letter.toUpperCase()}

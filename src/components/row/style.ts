@@ -26,6 +26,7 @@ export const GuessedLetter = styled.div`
   width: 10%;
   aspect-ratio: 1/1;
   border-radius: 5px;
+  cursor: pointer;
   color: #fff;
   display: flex;
   justify-content: center;

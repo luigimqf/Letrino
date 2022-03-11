@@ -9,8 +9,7 @@ import {
   Wrapper,
 } from "./style";
 import { IoIosArrowUp as Up } from "react-icons/io";
-import { SetStateAction, useContext } from "react";
-import { GameInfoContext } from "../../contexts/GameContext";
+import { SetStateAction } from "react";
 
 interface IProps {
   displayModal: boolean;
@@ -28,7 +27,6 @@ export function Modal({ displayModal, setDisplayModal }: IProps) {
     width: "20px",
     height: "20px",
   };
-  const { getResults } = useContext(GameInfoContext);
 
   function getLetterColor(letter: string) {
     switch (letter) {
@@ -105,7 +103,6 @@ export function Modal({ displayModal, setDisplayModal }: IProps) {
         </TutorialWrapper>
       </Info>
       <Close>
-        <button onClick={() => getResults()}>results</button>
         {displayModal && (
           <Up style={iconStyle} onClick={() => setDisplayModal(false)} />
         )}

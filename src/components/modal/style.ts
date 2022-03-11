@@ -10,26 +10,17 @@ export const Wrapper = styled.div<IProps>`
   position: absolute;
   display: flex;
   top: 0px;
-  transition: 0.2s;
+  transition: 0.1s;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  z-index: 1;
 `;
 
 export const Info = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #6d214f;
-`;
-
-export const Close = styled.div`
-  width: 100%;
-  border-radius: 0px 0px 5px 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 10%;
-  background-color: #6d214f;
+  background-color: #2f3542;
 `;
 
 export const TutorialWrapper = styled.div`
@@ -92,4 +83,14 @@ export const Letter = styled.div<IProps>`
     width: 20px;
     aspect-ratio: 1/1;
   }
+`;
+
+export const Close = styled.div`
+  width: 100%;
+  border-radius: 0px 0px 5px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10%;
+  background-color: #2f3542;
 `;

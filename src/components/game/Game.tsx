@@ -1,10 +1,22 @@
-import React, { useContext, useState } from "react";
+import { SetStateAction, useContext, useEffect } from "react";
 import { GameInfoContext } from "../../contexts/GameContext";
 import { Row } from "../row/Row";
 import { Wrapper } from "./style";
 
-export function Game() {
-  const { grid, activeRow } = useContext(GameInfoContext);
+interface IProps {
+  setDisplayGameWon: React.Dispatch<SetStateAction<boolean>>;
+}
+
+export function Game({ setDisplayGameWon }: IProps) {
+  const { grid, activeRow, isGameWon } = useContext(GameInfoContext);
+
+  useEffect(() => {
+    if (isGameWon) {
+      setTimeout(() => {
+        setDisplayGameWon(true);
+      }, 2000);
+    }
+  }, [isGameWon]);
 
   return (
     <Wrapper>
