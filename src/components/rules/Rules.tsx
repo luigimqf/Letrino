@@ -12,7 +12,7 @@ import {
 
 import { AiFillGithub as Git } from "react-icons/ai";
 import { IoIosArrowUp as Up } from "react-icons/io";
-import { SetStateAction, useState } from "react";
+import { SetStateAction } from "react";
 
 interface IProps {
   displayRules: boolean;
