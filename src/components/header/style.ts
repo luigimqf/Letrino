@@ -4,15 +4,27 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 10%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
 `;
 
 export const IconWrapper = styled.div`
-  width: 35px;
-  height: 35px;
+  width: 10%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0px 30px;
+`;
+
+export const NameWrapper = styled.div`
+  width: 80%;
+  height: 100%;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Letter = styled.h1`
+  margin: 0px 4px;
 `;

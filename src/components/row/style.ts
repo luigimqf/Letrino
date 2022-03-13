@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 
 interface IProps {
-  isActive: boolean;
+  $isActive: boolean;
 }
 
 const Flip = keyframes`
@@ -15,7 +15,7 @@ const Flip = keyframes`
 `;
 
 export const GuessedBox = styled.div`
-  width: 80%;
+  width: 250px;
   height: 40px;
   display: flex;
   justify-content: space-evenly;
@@ -23,7 +23,7 @@ export const GuessedBox = styled.div`
 `;
 
 export const GuessedLetter = styled.div`
-  width: 10%;
+  width: 13%;
   aspect-ratio: 1/1;
   border-radius: 5px;
   cursor: pointer;
@@ -34,7 +34,7 @@ export const GuessedLetter = styled.div`
   animation: ${Flip} 0.7s linear;
 `;
 export const RowBox = styled.div`
-  width: 80%;
+  width: 250px;
   height: 40px;
   display: flex;
 
@@ -43,12 +43,12 @@ export const RowBox = styled.div`
 `;
 
 export const LetterBox = styled.input<IProps>`
-  width: 10%;
+  width: 13%;
   aspect-ratio: 1/1;
-  border: 2px solid ${(props) => (props.isActive ? "#fff" : "none")};
+  border: 2px solid ${(props) => (props.$isActive ? "#2f3542" : "none")};
   border-radius: 5px;
-  background: ${(props) => (props.isActive ? "none" : "#none")};
-  color: #fff;
+  background: ${(props) => (props.$isActive ? "none" : "#none")};
+  color: #2f3542;
   font-weight: bold;
   text-decoration: none;
   text-align: center;

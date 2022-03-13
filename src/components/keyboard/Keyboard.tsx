@@ -12,34 +12,63 @@ export function Keyboard() {
     grid,
     setGrid,
     handleGuess,
+    isGameLose,
+    isGameWon,
     activeRow,
     inputOnFocus,
     setInputOnFocus,
     rightLetters,
-    wrongLetter,
+    wrongLetters,
+    existingLetters,
   } = useContext(GameInfoContext);
 
   function handleClick(key: string, index: number) {
+    if (isGameWon) return;
+    if (isGameLose) return;
     if (inputOnFocus === 5) {
       setInputOnFocus(index - 1);
       return;
     }
+
     const guessCopy = [...grid];
     guessCopy[activeRow].letters[index] = key.toLowerCase();
     setGrid(guessCopy);
     if (key === "") {
+      if (grid[activeRow].letters.filter(Boolean).length === 0) return;
       setInputOnFocus(inputOnFocus - 1);
       return;
     }
+    if (grid[activeRow].letters.filter(Boolean).length === 5) return;
     setInputOnFocus(inputOnFocus + 1);
   }
 
-  function getLetterColor(letter: string) {
-    for (let i = 0; i < rightLetters.length; i++) {
+  function getLetterBackground(letter: string) {
+    const allLenght = `${rightLetters.join("")}${existingLetters.join(
+      ""
+    )}${wrongLetters.join("")}`;
+
+    for (let i = 0; i < allLenght.length; i++) {
       if (rightLetters.includes(letter)) return "#10ac84";
-      if (wrongLetter.includes(letter)) return "#b71540";
+      if (existingLetters.includes(letter)) return "#ffa502";
+      if (wrongLetters.includes(letter)) return "#b71540";
 
       return "transparent";
+    }
+  }
+  function getLetterColor(letter: string) {
+    const allLenght = `${rightLetters.join("")}${existingLetters.join(
+      ""
+    )}${wrongLetters.join("")}`;
+
+    for (let i = 0; i < allLenght.length; i++) {
+      if (
+        rightLetters.includes(letter) ||
+        existingLetters.includes(letter) ||
+        wrongLetters.includes(letter)
+      )
+        return "#fff";
+
+      return "#2f3542";
     }
   }
 
@@ -47,12 +76,13 @@ export function Keyboard() {
     <KeyboardWrapper>
       <KeysWrapper>
         {upKeys.map((key, index) => {
+          const background = getLetterBackground(key.toLowerCase());
           const color = getLetterColor(key.toLowerCase());
 
           return (
             <Key
               value={key}
-              style={{ backgroundColor: `${color}` }}
+              style={{ backgroundColor: `${background}`, color: `${color}` }}
               onClick={() => handleClick(key, inputOnFocus)}
               key={key}
             >
@@ -63,11 +93,12 @@ export function Keyboard() {
       </KeysWrapper>
       <KeysWrapper>
         {middleKeys.map((key) => {
+          const background = getLetterBackground(key.toLowerCase());
           const color = getLetterColor(key.toLowerCase());
           return (
             <Key
               value={key}
-              style={{ backgroundColor: `${color}` }}
+              style={{ backgroundColor: `${background}`, color: `${color}` }}
               onClick={() => handleClick(key, inputOnFocus)}
               key={key}
             >
@@ -82,14 +113,15 @@ export function Keyboard() {
             handleGuess();
           }}
         >
-          <Enter style={{ width: "20px", height: "20px" }} />
+          <Enter style={{ width: "25px", height: "25px" }} />
         </Kingsize>
         {downKeys.map((key) => {
+          const background = getLetterBackground(key.toLowerCase());
           const color = getLetterColor(key.toLowerCase());
           return (
             <Key
               value={key}
-              style={{ backgroundColor: `${color}` }}
+              style={{ backgroundColor: `${background}`, color: `${color}` }}
               onClick={() => handleClick(key, inputOnFocus)}
               key={key}
             >
@@ -98,7 +130,7 @@ export function Keyboard() {
           );
         })}
         <Kingsize onClick={() => handleClick("", inputOnFocus)}>
-          <Backspace style={{ width: "20px", height: "20px" }} />
+          <Backspace style={{ width: "25px", height: "25px" }} />
         </Kingsize>
       </KeysWrapper>
     </KeyboardWrapper>

@@ -23,14 +23,11 @@ export const Wrapper = styled.div<IProps>`
   display: flex;
   top: 0px;
   transition: 0.1s;
-  border-bottom: 1px solid
-    ${(props) => (props.$display ? " #2f3542" : "transparent")};
   justify-content: space-between;
   align-items: center;
   z-index: 1;
   background-color: #2f3542;
 `;
-
 export const GridWrapper = styled.div`
   width: 30%;
   height: 100%;
@@ -39,7 +36,6 @@ export const GridWrapper = styled.div`
   align-items: center;
   /* background-color: blue; */
 `;
-
 export const Grid = styled.div<IProps>`
   width: 150px;
   height: 100%;
@@ -88,56 +84,72 @@ export const Info = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 768px) {
+    width: 70%;
+  }
 `;
-export const UWon = styled.h1<IProps>`
+
+export const ULost = styled.h1<IProps>`
   width: 70%;
   margin: 0;
   display: ${(props) => (props.$display ? "visible" : "none")};
   text-align: center;
-  color: #10ac84;
   font-size: clamp(1.3rem, 2.5vw, 2rem);
+  color: #b71540;
 `;
-export const Tries = styled.p<IProps>`
+
+export const DescWrapper = styled.div`
+  width: 40%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+`;
+export const Desc = styled.p<IProps>`
   width: 80%;
   text-align: center;
   display: ${(props) => (props.$display ? "visible" : "none")};
-  font-size: clamp(0.5rem, 2.5vw, 1rem);
   margin: 0;
   font-weight: bold;
+  font-size: clamp(0.6rem, 2.5vw, 1rem);
   color: #fff;
 `;
 
-export const ButtonWrapper = styled.div`
-  width: 100%;
-  height: 15%;
-  display: flex;
-  justify-content: center;
+export const Word = styled.p<IProps>`
+  margin: 0;
+  font-weight: bold;
+  display: ${(props) => (props.$display ? "visible" : "none")};
+  color: #10ac84;
+  font-size: clamp(0.6rem, 2.5vw, 1rem);
 `;
 
 export const Button = styled.div<IProps>`
-  height: 100%;
-  width: 20%;
-  border: 1px solid #2f3542;
-  background-color: ${(props) => (props.$color ? "#10ac84" : "#009afe")};
+  height: 15%;
+  width: 25%;
+  background-color: ${(props) => (props.$color ? "#009afe" : "#10ac84")};
   margin: 0px 10px;
   transition: 0.5s;
   border-radius: 3px;
   text-align: center;
   color: #fff;
   cursor: pointer;
-  font-size: clamp(0.5rem, 2.5vw, 0.6rem);
+  font-size: clamp(0.5rem, 2.5vw, 0.7rem);
   display: ${(props) => (props.$display ? "flex" : "none")};
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 768px) {
-    width: 35%;
+  @media (max-width: 1000px) {
+    width: 40%;
   }
-  @media (max-width: 450px) {
-    width: 45%;
+  @media (max-width: 768px) {
+    width: 50%;
+  }
+  @media (max-width: 500px) {
+    width: 80%;
   }
 `;
-
 export const CountWrapper = styled.div`
   width: 30%;
   height: 100%;
@@ -165,7 +177,6 @@ export const Close = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
   height: 10%;
   background-color: #2f3542;
 `;

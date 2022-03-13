@@ -1,4 +1,4 @@
-import { useRef, useEffect, useContext, SetStateAction } from "react";
+import React, { useRef, useEffect, useContext } from "react";
 import { GameInfoContext } from "../../contexts/GameContext";
 import { GuessedBox, GuessedLetter, LetterBox, RowBox } from "./style";
 import { alphabet } from "../../utils/alfabeto";
@@ -13,7 +13,10 @@ export function Row({ isActive, row, index }: IProps) {
   const {
     word,
     isGameWon,
+    handleGuess,
     setDisplayWonScreen,
+    setDisplayLoseScreen,
+    isGameLose,
     grid,
     setGrid,
     activeRow,
@@ -26,31 +29,39 @@ export function Row({ isActive, row, index }: IProps) {
 
   const elementsRef = useRef<HTMLInputElement[]>([]);
 
-  function handleChange(
-    e: React.KeyboardEvent<HTMLInputElement>,
-    index: number
-  ) {
-    let letter = e.key;
-
-    if (!alphabet.includes(letter)) return;
-    if (letter === "backspace" || letter === "Backspace") letter = "";
-
+  function handleInputChange(e: any, index: number) {
+    if (!alphabet.includes(e.target.value)) return;
+    if (e.nativeEvent.inputType === "deleteContentBackward") return;
     const guessCopy = [...grid];
-    guessCopy[activeRow].letters[index] = letter;
-
+    guessCopy[activeRow].letters[index] = e.target.value;
     setGrid(guessCopy);
-
-    if (e.key !== "Backspace" && inputOnFocus !== 5) {
-      changeInputFocus(index + 1);
-      return;
-    }
-    changeInputFocus(index - 1);
+    if (grid[activeRow].letters.filter(Boolean).length === 5) return;
+    changeInputFocus(index + 1);
   }
 
   function changeInputFocus(index: number) {
     const ref = elementsRef.current[index];
     if (ref) {
       ref.focus();
+    }
+  }
+  function handleKeyDown(
+    e: React.KeyboardEvent<HTMLInputElement>,
+    index: number
+  ) {
+    if (
+      e.key === "Enter" &&
+      grid[activeRow].letters.filter(Boolean).length === 5
+    ) {
+      handleGuess();
+      return;
+    }
+    if (!alphabet.includes(e.key)) return;
+    if (e.key === "Backspace") {
+      const guessCopy = [...grid];
+      guessCopy[activeRow].letters[index] = "";
+      setGrid(guessCopy);
+      changeInputFocus(index - 1);
     }
   }
 
@@ -62,9 +73,12 @@ export function Row({ isActive, row, index }: IProps) {
     return "#121214";
   }
 
-  function handleDisplayGameWon() {
+  function handleLetterClick() {
     if (isGameWon) {
       setDisplayWonScreen(true);
+    }
+    if (isGameLose) {
+      setDisplayLoseScreen(true);
     }
   }
 
@@ -89,7 +103,7 @@ export function Row({ isActive, row, index }: IProps) {
             return (
               <GuessedLetter
                 key={index}
-                onClick={() => handleDisplayGameWon()}
+                onClick={() => handleLetterClick()}
                 style={{ backgroundColor: `${color}` }}
               >
                 {letter.toUpperCase()}
@@ -106,13 +120,14 @@ export function Row({ isActive, row, index }: IProps) {
                 disabled={!isActive}
                 maxLength={1}
                 onFocus={() => setInputOnFocus(index)}
-                onKeyDown={(e) => handleChange(e, inputOnFocus)}
+                onChange={(e) => handleInputChange(e, inputOnFocus)}
+                onKeyDown={(e) => handleKeyDown(e, inputOnFocus)}
                 ref={(el) => {
                   if (el) {
                     elementsRef.current[index] = el;
                   }
                 }}
-                isActive={isActive}
+                $isActive={isActive}
                 key={index}
               />
             );

@@ -48,10 +48,11 @@ export function Modal({ displayModal, setDisplayModal }: IProps) {
               palavra.
             </Description>
             <LetterBox>
-              {tutorialWords[0].word.map((letter) => {
+              {tutorialWords[0].word.map((letter, index) => {
                 const color = getLetterColor(letter);
                 return (
                   <Letter
+                    key={index}
                     $display={displayModal}
                     style={{ backgroundColor: `${color}` }}
                   >
@@ -68,10 +69,11 @@ export function Modal({ displayModal, setDisplayModal }: IProps) {
               palavra.
             </Description>
             <LetterBox>
-              {tutorialWords[2].word.map((letter) => {
+              {tutorialWords[2].word.map((letter, index) => {
                 const color = getLetterColor(letter);
                 return (
                   <Letter
+                    key={index}
                     $display={displayModal}
                     style={{ backgroundColor: `${color}` }}
                   >
@@ -87,10 +89,11 @@ export function Modal({ displayModal, setDisplayModal }: IProps) {
               mas em outra posição.
             </Description>
             <LetterBox>
-              {tutorialWords[1].word.map((letter) => {
+              {tutorialWords[1].word.map((letter, index) => {
                 const color = getLetterColor(letter);
                 return (
                   <Letter
+                    key={index}
                     $display={displayModal}
                     style={{ backgroundColor: `${color}` }}
                   >

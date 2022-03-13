@@ -25,6 +25,7 @@ export const alphabet = [
   "x",
   "y",
   "z",
+  "ç",
   "backspace",
   "Backspace",
 ];

@@ -1,16 +1,17 @@
 import styled from "styled-components";
 
 export const KeyboardWrapper = styled.div`
-  width: 30%;
-  height: 25%;
+  width: 100%;
+  height: 35%;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
 `;
 
 export const KeysWrapper = styled.div`
   width: 100%;
+  margin-bottom: 10px;
   height: 25%;
   display: flex;
   align-items: center;
@@ -18,15 +19,15 @@ export const KeysWrapper = styled.div`
 `;
 
 export const Key = styled.button`
-  width: 40px;
+  width: 45px;
   aspect-ratio: 1/1;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0px 2px;
-  border: 1px solid #fff;
+  margin: 0px 3px;
+  border: 1px solid #2f3542;
   border-radius: 5px;
-  color: #fff;
+  color: #2f3542;
   background-color: transparent;
   font-weight: bold;
   user-select: none;
@@ -34,15 +35,15 @@ export const Key = styled.button`
 `;
 
 export const Kingsize = styled.div`
-  width: 55px;
-  height: 30px;
+  width: 70px;
+  height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0px 2px;
-  border: 1px solid #fff;
+  border: 1px solid #2f3542;
   border-radius: 5px;
-  color: #fff;
+  color: #2f3542;
   user-select: none;
   cursor: pointer;
 `;
