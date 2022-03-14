@@ -10,6 +10,10 @@ export const getTimeLeft = () => {
   const offSetSeconds = Math.floor(ms / 1000);
   const seconds = (offSetSeconds % 60).toString().padStart(2, "0");
 
+  if (offSetSeconds === 0) {
+    localStorage.clear();
+  }
+
   const offSetMinutes = Math.floor(offSetSeconds / 60);
   const minutes = (offSetMinutes % 60).toString().padStart(2, "0");
 

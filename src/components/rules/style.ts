@@ -40,7 +40,6 @@ export const Rule = styled.p<IProps>`
   color: #fff;
   font-size: clamp(0.5rem, 2.5vw, 0.8rem);
   display: ${(props) => (props.$display ? "visible" : "none")};
-  border-bottom: 1px solid #fff;
   user-select: none;
 `;
 

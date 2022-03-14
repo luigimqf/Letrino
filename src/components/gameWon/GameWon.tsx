@@ -116,12 +116,6 @@ export function GameWon() {
           >
             {copied ? "Copiado" : "Copiar Resultado"}
           </Button>
-          <Button
-            $display={displayWonScreen}
-            onClick={() => window.location.reload()}
-          >
-            Jogar novamente
-          </Button>
         </ButtonWrapper>
         <Close onClick={() => setDisplayWonScreen(false)}>
           {displayWonScreen && <Up style={iconStyle} />}

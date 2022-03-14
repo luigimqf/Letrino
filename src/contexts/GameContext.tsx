@@ -1,9 +1,5 @@
-import React, {
-  createContext,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, SetStateAction, useState } from "react";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 import { allowed } from "../utils/allowedWords";
 import { getTodayWord } from "../utils/getRandomWord";
 
@@ -40,34 +36,21 @@ interface IGrid {
   id: number;
   letters: string[];
 }
-interface ILocalStorage {
-  isGameWon: any;
-  grid: IGrid[];
-  guessedRows: number[];
-  guesses: string[][];
-  wrongLetters: string[];
-  existingLetters: string[];
-  rightLetters: string[];
-}
 
 export const GameInfoContext = createContext({} as IGame);
 
 export function GameInfoProvider({ children }: IProps) {
   const word = getTodayWord();
 
-  const [isGameWon, setIsGameWon] = useState(false);
-  const [displayWonScreen, setDisplayWonScreen] = useState(false);
-  const [isGameLose, setIsGameLose] = useState(false);
-  const [displayLoseScreen, setDisplayLoseScreen] = useState(false);
-  const [activeRow, setActiveRow] = useState(0);
-  const [guessedRows, setGuessedRows] = useState<number[]>([]);
-  const [guesses, setGuesses] = useState<string[][]>([]);
-  const [results, setResults] = useState<string>("");
-  const [inputOnFocus, setInputOnFocus] = useState(0);
-  const [wrongLetters, setWrongLetters] = useState<string[]>([]);
-  const [existingLetters, setExistingLetters] = useState<string[]>([]);
-  const [rightLetters, setRightLetters] = useState<string[]>([]);
-  const [grid, setGrid] = useState<IGrid[]>([
+  const [isGameWon, setIsGameWon] = useLocalStorage("isGameWon", false);
+  const [isGameLose, setIsGameLose] = useLocalStorage("isGameLost", false);
+  const [guessedRows, setGuessedRows] = useLocalStorage<number[]>(
+    "guessedRows",
+    []
+  );
+  const [guesses, setGuesses] = useLocalStorage<string[][]>("guesses", []);
+  const [activeRow, setActiveRow] = useLocalStorage("activeRow", 0);
+  const [grid, setGrid] = useLocalStorage<IGrid[]>("grid", [
     { id: 0, letters: ["", "", "", "", ""] },
     { id: 1, letters: ["", "", "", "", ""] },
     { id: 2, letters: ["", "", "", "", ""] },
@@ -75,6 +58,39 @@ export function GameInfoProvider({ children }: IProps) {
     { id: 4, letters: ["", "", "", "", ""] },
     { id: 5, letters: ["", "", "", "", ""] },
   ]);
+  const [wrongLetters, setWrongLetters] = useLocalStorage<string[]>(
+    "wrongLetters",
+    []
+  );
+  const [existingLetters, setExistingLetters] = useLocalStorage<string[]>(
+    "existingLetters",
+    []
+  );
+  const [rightLetters, setRightLetters] = useLocalStorage<string[]>(
+    "rightLetters",
+    []
+  );
+  // const [isGameWon, setIsGameWon] = useState(false);
+  const [displayWonScreen, setDisplayWonScreen] = useState(false);
+  // const [isGameLose, setIsGameLose] = useState(false);
+  const [displayLoseScreen, setDisplayLoseScreen] = useState(false);
+  // const [activeRow, setActiveRow] = useState(0);
+
+  // const [guessedRows, setGuessedRows] = useState<number[]>([]);
+  // const [guesses, setGuesses] = useState<string[][]>([]);
+  const [results, setResults] = useState<string>("");
+  const [inputOnFocus, setInputOnFocus] = useState(0);
+  // const [wrongLetters, setWrongLetters] = useState<string[]>([]);
+  // const [existingLetters, setExistingLetters] = useState<string[]>([]);
+  // const [rightLetters, setRightLetters] = useState<string[]>([]);
+  // const [grid, setGrid] = useState<IGrid[]>([
+  //   { id: 0, letters: ["", "", "", "", ""] },
+  //   { id: 1, letters: ["", "", "", "", ""] },
+  //   { id: 2, letters: ["", "", "", "", ""] },
+  //   { id: 3, letters: ["", "", "", "", ""] },
+  //   { id: 4, letters: ["", "", "", "", ""] },
+  //   { id: 5, letters: ["", "", "", "", ""] },
+  // ]);
   // const [localStorageIV, setLocalStorageIV] = useState({} as ILocalStorage);
 
   function handleGuess() {
