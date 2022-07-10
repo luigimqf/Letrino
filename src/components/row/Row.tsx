@@ -59,8 +59,11 @@ export function Row({ isActive, row, index }: IProps) {
     if (!alphabet.includes(e.key)) return;
     if (e.key === "Backspace") {
       const guessCopy = [...grid];
-      guessCopy[activeRow].letters[index] = "";
-      setGrid(guessCopy);
+      if (guessCopy[activeRow].letters[index] !== "") {
+        guessCopy[activeRow].letters[index] = "";
+        setGrid(guessCopy);
+        return;
+      }
       changeInputFocus(index - 1);
     }
   }

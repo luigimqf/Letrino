@@ -1,4 +1,9 @@
-import React, { createContext, SetStateAction, useState } from "react";
+import React, {
+  createContext,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { allowed } from "../utils/allowedWords";
 import { getTodayWord } from "../utils/getRandomWord";
@@ -40,7 +45,7 @@ interface IGrid {
 export const GameInfoContext = createContext({} as IGame);
 
 export function GameInfoProvider({ children }: IProps) {
-  const word = getTodayWord();
+  const { id, word } = getTodayWord();
 
   const [isGameWon, setIsGameWon] = useLocalStorage("isGameWon", false);
   const [isGameLose, setIsGameLose] = useLocalStorage("isGameLost", false);
@@ -70,28 +75,12 @@ export function GameInfoProvider({ children }: IProps) {
     "rightLetters",
     []
   );
-  // const [isGameWon, setIsGameWon] = useState(false);
-  const [displayWonScreen, setDisplayWonScreen] = useState(false);
-  // const [isGameLose, setIsGameLose] = useState(false);
-  const [displayLoseScreen, setDisplayLoseScreen] = useState(false);
-  // const [activeRow, setActiveRow] = useState(0);
+  const [wordId, setWordId] = useLocalStorage<number>("wordId", id);
 
-  // const [guessedRows, setGuessedRows] = useState<number[]>([]);
-  // const [guesses, setGuesses] = useState<string[][]>([]);
+  const [displayWonScreen, setDisplayWonScreen] = useState(false);
+  const [displayLoseScreen, setDisplayLoseScreen] = useState(false);
   const [results, setResults] = useState<string>("");
   const [inputOnFocus, setInputOnFocus] = useState(0);
-  // const [wrongLetters, setWrongLetters] = useState<string[]>([]);
-  // const [existingLetters, setExistingLetters] = useState<string[]>([]);
-  // const [rightLetters, setRightLetters] = useState<string[]>([]);
-  // const [grid, setGrid] = useState<IGrid[]>([
-  //   { id: 0, letters: ["", "", "", "", ""] },
-  //   { id: 1, letters: ["", "", "", "", ""] },
-  //   { id: 2, letters: ["", "", "", "", ""] },
-  //   { id: 3, letters: ["", "", "", "", ""] },
-  //   { id: 4, letters: ["", "", "", "", ""] },
-  //   { id: 5, letters: ["", "", "", "", ""] },
-  // ]);
-  // const [localStorageIV, setLocalStorageIV] = useState({} as ILocalStorage);
 
   function handleGuess() {
     if (
@@ -135,7 +124,7 @@ export function GameInfoProvider({ children }: IProps) {
   }
 
   function getResults() {
-    setResults(`Meu resultado foi (${guesses.length}/6) @everyone \n \n`);
+    setResults(`Meu resultado foi (${guesses.length}/6)  \n \n`);
     guesses.map((guess) => {
       guess.map((letter, index) => {
         if (word[index] === letter) {
@@ -154,6 +143,14 @@ export function GameInfoProvider({ children }: IProps) {
         prevValue + "\nJogue Letrino agora em https://letrino.com.br"
     );
   }
+
+  useEffect(() => {
+    if (wordId !== id) {
+      localStorage.clear();
+      setWordId(id);
+      window.location.reload();
+    }
+  }, [word]);
 
   return (
     <GameInfoContext.Provider

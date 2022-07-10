@@ -28,12 +28,6 @@ export function Rules({ displayRules, setDisplayRules }: IProps) {
   };
   return (
     <Wrapper $display={displayRules}>
-      <Side>
-        <Git
-          onClick={() => window.open("https://github.com/luigimqf/Letrino")}
-          style={iconStyle}
-        />
-      </Side>
       <Info>
         <Rule $display={displayRules}> É sorteado uma palavra por dia.</Rule>
         <Rule $display={displayRules}> Não é necessário o uso de acentos.</Rule>

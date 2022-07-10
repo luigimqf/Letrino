@@ -12,7 +12,7 @@ export const Wrapper = styled.div<IProps>`
   transition: 0.1s;
   border-bottom: 1px solid
     ${(props) => (props.$display ? " #2f3542" : "transparent")};
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   z-index: 1;
   background-color: #2f3542;

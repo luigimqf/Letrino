@@ -81,12 +81,6 @@ export function GameLost() {
           <Desc $display={displayLoseScreen}>A palavra era</Desc>
           <Word $display={displayLoseScreen}>{word.toUpperCase()}</Word>
         </DescWrapper>
-        <Button
-          $display={displayLoseScreen}
-          onClick={() => window.location.reload()}
-        >
-          Jogar novamente
-        </Button>
         <Close onClick={() => setDisplayLoseScreen(false)}>
           {displayLoseScreen && <Up style={iconStyle} />}
         </Close>

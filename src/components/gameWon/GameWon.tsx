@@ -104,7 +104,7 @@ export function GameWon() {
         </Grid>
       </GridWrapper>
       <Info>
-        <UWon $display={displayWonScreen}>Parabéns,você acertou!</UWon>
+        <UWon $display={displayWonScreen}>Você acertou!</UWon>
         <Tries $display={displayWonScreen}>
           Seu placar foi de {guesses?.length}/6 tentativas
         </Tries>

@@ -15,9 +15,9 @@ export function getDate(): string {
   return correctedDate.toISOString().split("T")[0];
 }
 
-export function getTodayWord(): string {
+export function getTodayWord(): IDailyWord {
   const wordSelected = datedWords[getDate()];
-  return wordSelected.word;
+  return wordSelected;
 }
 
 export const randomWord = words[Math.floor(Math.random() * words.length)];
