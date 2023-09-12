@@ -35,6 +35,7 @@ export function GameWon() {
     color: "#fff",
     width: "20px",
     height: "20px",
+    cursor: "pointer",
   };
 
   function handleClick() {

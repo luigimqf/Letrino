@@ -26,6 +26,7 @@ export function Modal({ displayModal, setDisplayModal }: IProps) {
     color: "#fff",
     width: "20px",
     height: "20px",
+    cursor: "pointer",
   };
 
   function getLetterColor(letter: string) {
