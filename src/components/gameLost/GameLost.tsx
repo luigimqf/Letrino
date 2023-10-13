@@ -28,6 +28,7 @@ export function GameLost() {
     color: "#fff",
     width: "20px",
     height: "20px",
+    cursor: "pointer",
   };
   function getGridColor(letter: string, index: number) {
     if (word[index] === letter.toLowerCase()) return "#10ac84";
