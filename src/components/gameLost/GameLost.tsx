@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { GameInfoContext } from "../../contexts/GameContext";
 import {
-  Button,
   Close,
   Info,
   Desc,
