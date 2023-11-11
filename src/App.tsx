@@ -9,6 +9,7 @@ import { Modal } from "./components/modal/Modal";
 import { GameWon } from "./components/gameWon/GameWon";
 import { GameLost } from "./components/gameLost/GameLost";
 import { Rules } from "./components/rules/Rules";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   const [displayModal, setDisplayModal] = useState(false);
@@ -31,6 +32,7 @@ function App() {
           <Keyboard />
         </GameContainer>
       </Wrapper>
+      <Analytics />
     </GameInfoProvider>
   );
 }
