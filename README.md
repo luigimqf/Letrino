@@ -1,6 +1,6 @@
 # Letrino - uma palavra secreta por dia.
 
-O [**Letrino**](https://letrino.com.br) é um jogo sobre adivinhação de palavras, criado como uma versão brasileira não-oficial do [Wordle](https://www.powerlanguage.co.uk/wordle/). Todos os dias é sorteado uma palavra de 5 letras e é o objetivo dos jogadores de descobrir a palavra usando 6 tentativas. Todas as tentativas te dão dicas sobre o quão perto você está de acertar.
+O [**Letrino**](https://letrino.com.br) é um jogo sobre adivinhação de palavras, criado como uma versão brasileira não-oficial do [Wordle](https://www.powerlanguage.co.uk/wordle/). Todos os dias é sorteado uma palavra de 5 letras e o objetivo dos jogadores é descobrir a palavra usando 6 tentativas. Todas as tentativas te dão dicas sobre o quão perto você está de acertar.
 
 O Letrino foi criado com a intenção de consolidar o meu conhecimento com o React e para termos uma versão brasileira desse jogo viciante.
 
