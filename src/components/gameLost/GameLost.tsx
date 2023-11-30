@@ -15,14 +15,17 @@ import {
   CountWrapper,
   NextWord,
   Count,
+  ButtonWrapper,
+  Button,
 } from "./style";
 import { IoIosArrowUp as Up } from "react-icons/io";
 import { getTimeLeft } from "../../utils/getCountDown";
 
 export function GameLost() {
-  const { word, isGameLose, setDisplayLoseScreen, displayLoseScreen, guesses } =
+  const { word, isGameLose, setDisplayLoseScreen, displayLoseScreen, guesses, getResults, results } =
     useContext(GameInfoContext);
   const [count, setCount] = useState<string>(getTimeLeft());
+  const [copied, setCopied] = useState(false);
   const iconStyle = {
     color: "#fff",
     width: "20px",
@@ -35,6 +38,14 @@ export function GameLost() {
     if (!word.includes(letter.toLowerCase())) return "#b71540";
 
     return "#121214";
+  }
+
+  function handleClick() {
+    setCopied(true);
+    getResults();
+    if (results) {
+      navigator.clipboard.writeText(results);
+    }
   }
 
   useEffect(() => {
@@ -53,6 +64,17 @@ export function GameLost() {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    if (copied) {
+      const timeout = setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [copied]);
+
+  
   return (
     <Wrapper $display={displayLoseScreen}>
       <GridWrapper>
@@ -81,6 +103,15 @@ export function GameLost() {
           <Desc $display={displayLoseScreen}>A palavra era</Desc>
           <Word $display={displayLoseScreen}>{word.toUpperCase()}</Word>
         </DescWrapper>
+        <ButtonWrapper>
+          <Button
+            $display={displayLoseScreen}
+            onClick={() => handleClick()}
+            $color={copied}
+          >
+            {copied ? "Copiado" : "Copiar Resultado"}
+          </Button>
+        </ButtonWrapper>
         <Close onClick={() => setDisplayLoseScreen(false)}>
           {displayLoseScreen && <Up style={iconStyle} />}
         </Close>

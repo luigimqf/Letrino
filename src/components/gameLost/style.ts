@@ -125,31 +125,37 @@ export const Word = styled.p<IProps>`
   font-size: clamp(0.6rem, 2.5vw, 1rem);
 `;
 
-export const Button = styled.div<IProps>`
+export const ButtonWrapper = styled.div`
+  width: 100%;
   height: 15%;
-  width: 25%;
-  background-color: ${(props) => (props.$color ? "#009afe" : "#10ac84")};
+  display: flex;
+  justify-content: center;
+`;
+
+export const Button = styled.div<IProps>`
+  height: 100%;
+  width: 20%;
+  border: 1px solid #2f3542;
+  background-color: ${(props) => (props.$color ? "#10ac84" : "#009afe")};
   margin: 0px 10px;
   transition: 0.5s;
   border-radius: 3px;
   text-align: center;
   color: #fff;
   cursor: pointer;
-  font-size: clamp(0.5rem, 2.5vw, 0.7rem);
+  font-size: clamp(0.5rem, 2.5vw, 0.6rem);
   display: ${(props) => (props.$display ? "flex" : "none")};
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 1000px) {
-    width: 40%;
-  }
   @media (max-width: 768px) {
-    width: 50%;
+    width: 35%;
   }
-  @media (max-width: 500px) {
-    width: 80%;
+  @media (max-width: 450px) {
+    width: 45%;
   }
 `;
+
 export const CountWrapper = styled.div`
   width: 30%;
   height: 100%;

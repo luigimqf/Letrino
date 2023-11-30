@@ -56,9 +56,11 @@ export function GameWon() {
 
   useEffect(() => {
     if (copied) {
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         setCopied(false);
       }, 2000);
+
+      return () => clearTimeout(timeout);
     }
   }, [copied]);
 
