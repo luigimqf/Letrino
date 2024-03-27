@@ -5,7 +5,7 @@ import { BsCheck2 as Enter } from "react-icons/bs";
 import { GameInfoContext } from "../../contexts/GameContext";
 
 export function Keyboard() {
-  const upKeys = ["Q", "E", "R", "T", "Y", "U", "I", "O", "P"];
+  const upKeys = ["Q","W", "E", "R", "T", "Y", "U", "I", "O", "P"];
   const middleKeys = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
   const downKeys = ["Z", "X", "C", "V", "B", "N", "M"];
   const {
